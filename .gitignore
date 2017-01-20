@@ -2,3 +2,4 @@ chemistry-tutor
 Makefile
 .moc
 .obj
+.ysm_extra_conf.py
