@@ -32,7 +32,7 @@ void WSolution::makeConditions()
     cbSubstance_.addItem("воздух", QVariant(29));
     
     eDh_.setText("25");
-    eDc_.setText("80");
+    eDc_.setText("75");
 
     eDensity_.setText("0,5");
 
@@ -110,35 +110,28 @@ void WSolution::solve()
     st += "3. Разделив оба соотношения на наименьшее получим простейшую формулу " +
         sPartSub + "\n";
 
+    double dM = cbSubstance_.currentData().toDouble();
+
     st += "4. Плотность по " + cbSubstance_.currentText() + "y " + "равна относительной " +
-        "молекулярной массе всего вещества, деленное на относительную молекулярную " +
+        "молекулярной массе всего вещества деленное на относительную молекулярную " +
         "массу " + cbSubstance_.currentText() + "а, а значит \n";
-    st += "Р = M / 32, M = P * 32 = " + eDensity_.text() + " * 32 = ";
+    st += "Р = M / 32, M = P * 32 = " + eDensity_.text() + " * " + QString::number(dM) + " = ";
 
     QString sM = eDensity_.text();
     sM.replace(',' , ".");
-    double M = sM.toDouble() * 32;
+    double M = sM.toDouble() * dM;
     
     st += QString::number(M) + "\n";
 
     int Mpart = ix * 12 + iy;
     st += "5. Молекулярная масса простейшей формулы равна " + QString::number(x) + " * 12 + " +
         QString::number(iy) + " * 1 = " + QString::number(Mpart) + "\n";
-
-    if (Mpart == int(M))
-    {
-        st += "6. Массовая доля " + sPartSub +
-            " = " + QString::number(Mpart) + ", а значит вещество и есть " + sPartSub;
-    }
-    else
-    {
-        st += "6. M(" + sPartSub + ") < M,\nM(вещества) = k * M(" + sPartSub + ")\n";
-        st += "k = M(вещества) / M(" + sPartSub + ")";
-        int k = M / Mpart;
-        st += " = " + QString::number(k) + "\n";
-        st += "Искомая формула вещества С" + QString::number(ix * k) +
+        
+    int k = std::ceil(M / Mpart);
+    st += "6. k = M(вещества) / M(" + sPartSub + ")";
+    st += " = " + QString::number(k) + "\n";
+    st += "Искомая формула вещества С" + QString::number(ix * k) +
             "H" + QString::number(iy * k) + "\n";
-    }
 
     tOut_.setText(st);    
 }

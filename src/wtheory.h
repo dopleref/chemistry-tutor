@@ -2,6 +2,7 @@
 #define WTHEORY_H
 
 #include <QWidget>
+#include <QTextEdit>
 
 class WTheory : public QWidget
 {
@@ -12,6 +13,10 @@ public:
 signals:
 
 public slots:
+
+private:
+    QTextEdit text_;
+    QString st_ {""};
 };
 
 #endif // WTHEORY_H
