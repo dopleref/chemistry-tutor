@@ -20,9 +20,14 @@ private:
     void make();
     void connections();
 
+    void gen();
+
     QVBoxLayout mLayout_;
     QPushButton btnGen_ {"Сгенерировать задачу"};
     QTextEdit out_;
+    
+    int count_ = 0;
+    QList<QString> tasks_;
 };
 
 #endif // WTASK_H
