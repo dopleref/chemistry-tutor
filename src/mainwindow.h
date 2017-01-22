@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QTabWidget>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QComboBox>
 
 class MainWindow : public QMainWindow
 {
@@ -18,6 +21,14 @@ private:
     void makeSolution();
     void makeTask();
     void makeTheory();
+
+    QWidget widget_;
+
+    QVBoxLayout mLayout_;
+    QHBoxLayout tLayout_;
+    QVBoxLayout bLayout_;
+    QLabel lType_ {"Выберите тип задачи:"};
+    QComboBox cbType_;
 
     QTabWidget tab_;
     QWidget solution_;

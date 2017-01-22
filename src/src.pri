@@ -1,5 +1,7 @@
 
-HEADERS += src/mainwindow.h
+HEADERS += src/mainwindow.h \
+    $$PWD/wtheory.h
 
 SOURCES += src/main.cpp \
-            src/mainwindow.cpp
+            src/mainwindow.cpp \
+    $$PWD/wtheory.cpp

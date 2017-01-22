@@ -3,3 +3,4 @@ Makefile
 .moc
 .obj
 .ysm_extra_conf.py
+chemistry-tutor.pro.user
