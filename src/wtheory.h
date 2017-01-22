@@ -3,6 +3,8 @@
 
 #include <QWidget>
 #include <QTextEdit>
+#include <QFile>
+#include <QVBoxLayout>
 
 class WTheory : public QWidget
 {
@@ -15,8 +17,9 @@ signals:
 public slots:
 
 private:
+    QVBoxLayout mLayout_;
     QTextEdit text_;
-    QString st_ {""};
+    QFile file_ {"theory1.txt"};
 };
 
 #endif // WTHEORY_H

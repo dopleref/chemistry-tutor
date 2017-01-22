@@ -30,6 +30,7 @@ void WSolution::makeConditions()
     cbSubstance_.addItem("водород", QVariant(2));
     cbSubstance_.addItem("кислород", QVariant(32));
     cbSubstance_.addItem("воздух", QVariant(29));
+    cbSubstance_.setCurrentIndex(1);
     
     eDh_.setText("25");
     eDc_.setText("75");
