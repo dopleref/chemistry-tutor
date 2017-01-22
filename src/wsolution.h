@@ -9,6 +9,8 @@
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QFormLayout>
+#include <QPushButton>
+#include <QTextEdit>
 
 class WSolution : public QWidget
 {
@@ -30,19 +32,14 @@ private:
 
     QVBoxLayout mLayout_;
 
-    QLabel lDh_ {"Доля водорода, Dh:"};
-    QLabel lDc_ {"Доля водорода, Dс:"};
-    QLabel lSubstance_ {"Вещество:"};
-    QLabel lDensity_ {"Плотность:"};
-
-    QGridLayout cLayout_;
+    QFormLayout fLayout_;
     QLineEdit eDh_;
     QLineEdit eDc_;
     QComboBox cbSubstance_;
     QLineEdit eDensity_;
+    QPushButton btnSolve_ {"Решить"};
 
-    QFormLayout fLayout_;
-
+    QTextEdit tOut_;
 };
 
 #endif // WSOLUTION_H

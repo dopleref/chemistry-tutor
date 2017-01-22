@@ -7,25 +7,32 @@ WSolution::WSolution(QWidget *parent) : QWidget(parent)
 
 void WSolution::make()
 {
-//    setLayout(&mLayout_);
-//    mLayout_.addWidget(&conditions_);
-//    mLayout_.addWidget(&out_);
-
     mLayout_.addWidget(&conditions_);
     this->setLayout(&mLayout_);
+    makeConditions();
+    makeOut();
 }
 
 void WSolution::makeConditions()
 {
-//    conditions_.setLayout(&cLayout_);
-//    cLayout_.addWidget(&lDh_, 0, 0);
-//    cLayout_.addWidget(&eDh_, 0, 1);
-
     fLayout_.addRow("Доля водорода, Dh:", &eDh_);
+    fLayout_.addRow("Доля углерода, Dc:", &eDc_);
+    fLayout_.addRow("Вещество:", &cbSubstance_);
+    fLayout_.addRow("Плотность:", &eDensity_);
+    fLayout_.addRow("", &btnSolve_);
     conditions_.setLayout(&fLayout_);
+    
+    cbSubstance_.addItem("водород", QVariant(2));
+    cbSubstance_.addItem("кислород", QVariant(32));
+    cbSubstance_.addItem("воздух", QVariant(29));
+    
+    eDh_.setText("20 %");
+    eDc_.setText("80 %");
+
+    eDensity_.setText("1.00");
 }
 
 void WSolution::makeOut()
 {
-
+    mLayout_.addWidget(&tOut_);
 }

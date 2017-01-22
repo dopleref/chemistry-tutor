@@ -4,3 +4,4 @@ Makefile
 .obj
 .ysm_extra_conf.py
 chemistry-tutor.pro.user
+.qmake.stash
