@@ -8,6 +8,10 @@
 #include <QLabel>
 #include <QComboBox>
 
+#include "wsolution.h"
+#include "wtask.h"
+#include "wtheory.h"
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -31,9 +35,9 @@ private:
     QComboBox cbType_;
 
     QTabWidget tab_;
-    QWidget solution_;
-    QWidget task_;
-    QWidget theory_;
+    WSolution solution_;
+    WTask task_;
+    WTheory theory_;
 
 };
 
