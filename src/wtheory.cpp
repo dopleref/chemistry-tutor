@@ -1,6 +1,7 @@
 #include "wtheory.h"
 #include <QTextStream>
 #include <QtDebug>
+#include <QTextCodec>
 
 WTheory::WTheory(QWidget *parent) : QWidget(parent)
 {
@@ -10,7 +11,9 @@ WTheory::WTheory(QWidget *parent) : QWidget(parent)
         return;
     }
 
+    QTextCodec* pCodec = QTextCodec::codecForName( "UTF-8");
     QTextStream in(&file_);
+    in.setCodec(pCodec);
     QString line = in.readAll();
     text_.setText(line);
 
