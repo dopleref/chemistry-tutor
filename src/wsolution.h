@@ -26,6 +26,12 @@ private:
     void make();
     void makeConditions();
     void makeOut();
+    void connections();
+    
+    void reCountDh(const QString& text);
+    void reCountDc(const QString& text);
+    void dhLoseFocus();
+    void dcLoseFocus();
 
     QWidget conditions_;
     QWidget out_;
