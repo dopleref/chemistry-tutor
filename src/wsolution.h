@@ -37,7 +37,8 @@ private:
     void dhLoseFocus();
     void dcLoseFocus();
 
-    void solve();
+    void solve1();
+    void solve2();
 
     QWidget conditions1_;
     QWidget conditions2_;

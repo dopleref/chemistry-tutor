@@ -69,13 +69,15 @@ void WSolution::makeConditions2()
     fLayout2_.addRow("m(CO2)", &eMco2_);
     fLayout2_.addRow("m(H2O)", &eMh2o_);
     fLayout2_.addRow("вещество", &cbSub2_);
-    fLayout2_.addRow("плотность по H2", &eDensity2_);
+    fLayout2_.addRow("плотность", &eDensity2_);
     fLayout2_.addRow("", &btnSolve2_);
 
+    eMun_.setText("130");
     eMco2_.setText("44");
     eMh2o_.setText("18");
     cbSub2_.addItem("водород", QVariant(2));
     cbSub2_.setEnabled(false);
+    eDensity2_.setText("39");
 
     eMun_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
     eMco2_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
@@ -94,7 +96,8 @@ void WSolution::connections()
     connect(&eDh_, &QLineEdit::textChanged, this, &WSolution::reCountDc);
     connect(&eDc_, &QLineEdit::textEdited, this, &WSolution::dcLoseFocus);
     connect(&eDh_, &QLineEdit::textEdited, this, &WSolution::dhLoseFocus);
-    connect(&btnSolve1_, &QPushButton::clicked, this, &WSolution::solve);
+    connect(&btnSolve1_, &QPushButton::clicked, this, &WSolution::solve1);
+    connect(&btnSolve2_, &QPushButton::clicked, this, &WSolution::solve2);
 }
 
 void WSolution::reCountDc(const QString& text)
@@ -123,7 +126,7 @@ void WSolution::dhLoseFocus()
         eDh_.setText("0");
 }
 
-void WSolution::solve()
+void WSolution::solve1()
 {
     QString st;
     st = "1. Массовая доля водорода равна " + eDh_.text() + "%\n";
@@ -177,4 +180,58 @@ void WSolution::solve()
 
     tOut_.setText(st);    
 }
+
+void WSolution::solve2()
+{
+    // найдем молекулярную массу вещества
+    double p = eDensity2_.text().toDouble();
+    double m_sub = p * 2.0;
+    // найдем массу углерода
+    double m_CO2 = eMco2_.text().toDouble();
+    double m_C = (12 * m_CO2) / 44;
+    // найдем массу водорода
+    double m_H2 = eMh2o_.text().toDouble();
+    double m_H = (2 * m_H2) / 18;
+    // определим наличие кислорода в веществе
+    double m_sum = m_C + m_H;
+    double m_un = eMun_.text().toDouble();
+    double m_O = m_un - m_sum;
+    // составим формулу вещества
+    double x, y, z;
+    x = m_C / 12;
+    y = m_H;
+    z = m_O / 16;
+    double min_val = std::fmin(std::fmin(x, y), z);
+    int x1, x2, x3;
+    x1 = std::ceil(x / min_val);
+    x2 = std::ceil(y / min_val);
+    x3 = std::ceil(z / min_val); 
+    double m_simple = x1 * 12 + x2 + x3 * 16;
+    double k = m_sub / m_simple;
+    x1 = x1 * k;
+    x2 = x2 * k;
+    x3 = x3 * k;
+
+    // сформируем текст решения
+    tOut_.setText("");
+    QString text;
+    text = "1. Молекулярная масса вещества может быть вычислена по формуле\n";
+    text += "Mr = P * M(H2) = " + QString::number(p) + " * 2 = " +
+        QString::number(m_sub) + "\n";
+    text += "2. В 44 граммах СО2 содержится 12 граммов С.\n";
+    text += "Пусть в m(CO2) содержится x граммов C. Тогда мы можем составить ";
+    text += "пропорцию 44/12 = m(CO2)/m(C). \nОтсюда находим m(C) = (12 * m(CO2)) / 44 = ";
+    text += QString::number(m_C) + "\n";
+
+    text += "3. В 18 граммах H2O содержится 2 грамма H.\n";
+    text += "Пусть в m(H2O) содержится x граммов H. Тогда мы можем составить ";
+    text += "пропорцию 18/2 = m(H2O)/m(H). \nОтсюда находим m(H) = (2 * m(H2O)) / 18 = ";
+    text += QString::number(m_H) + "\n";
+
+    text += "4. Определим массу кислорода в веществе \nm(O) = m(вещества) - m(H) - m(C) = ";
+    text += QString::number(m_O) + "\n";
+
+
+    tOut_.setText(text);
+} 
 
