@@ -18,13 +18,17 @@ class WSolution : public QWidget
 public:
     explicit WSolution(QWidget *parent = 0);
 
+public slots:
+    void changeType(int typeNum);
+
 signals:
 
 public slots:
 
 private:
     void make();
-    void makeConditions();
+    void makeConditions1();
+    void makeConditions2();
     void makeOut();
     void connections();
     
@@ -35,19 +39,29 @@ private:
 
     void solve();
 
-    QWidget conditions_;
-    QWidget out_;
+    QWidget conditions1_;
+    QWidget conditions2_;
 
     QVBoxLayout mLayout_;
 
-    QFormLayout fLayout_;
+    QFormLayout fLayout1_;
+    QFormLayout fLayout2_;
+    /// интерфейс ввода входных данных для типа 1
     QLineEdit eDh_;
     QLineEdit eDc_;
-    QComboBox cbSubstance_;
-    QLineEdit eDensity_;
-    QPushButton btnSolve_ {"Решить"};
+    QComboBox cbSub1_;
+    QLineEdit eDensity1_;
+    QPushButton btnSolve1_ {"Решить"};
+    /// интерфейс ввода входных данных для типа 2
+    QLineEdit eMun_;
+    QLineEdit eMco2_;
+    QLineEdit eMh2o_;
+    QComboBox cbSub2_;
+    QLineEdit eDensity2_;
+    QPushButton btnSolve2_ {"Решить"};
 
     QTextEdit tOut_;
+
 };
 
 #endif // WSOLUTION_H

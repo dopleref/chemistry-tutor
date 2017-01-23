@@ -4,6 +4,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     make();
+    connect(&cbType_, SIGNAL(currentIndexChanged(int)), &solution_, SLOT(changeType(int)));
 }
 
 MainWindow::~MainWindow()

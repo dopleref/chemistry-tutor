@@ -3,6 +3,7 @@
 #include <QDoubleValidator>
 #include <QtDebug>
 #include <cmath>
+#include <QDebug>
 
 WSolution::WSolution(QWidget *parent) : QWidget(parent)
 {
@@ -10,36 +11,76 @@ WSolution::WSolution(QWidget *parent) : QWidget(parent)
     connections();
 }
 
+void WSolution::changeType(int typeNum)
+{
+    if (typeNum == 0)
+    {
+        conditions1_.show();
+        conditions2_.hide();
+    }
+    else
+    {
+        conditions2_.show();
+        conditions1_.hide();
+    }
+    tOut_.clear();
+}
+
 void WSolution::make()
 {
-    mLayout_.addWidget(&conditions_);
+    mLayout_.addWidget(&conditions1_);
+    mLayout_.addWidget(&conditions2_);
     this->setLayout(&mLayout_);
-    makeConditions();
+    makeConditions1();
+    makeConditions2();
     makeOut();
 }
 
-void WSolution::makeConditions()
+void WSolution::makeConditions1()
 {
-    fLayout_.addRow("Доля водорода H, %:", &eDh_); 
-    fLayout_.addRow("Доля углерода C, %:", &eDc_);
-    fLayout_.addRow("Вещество:", &cbSubstance_);
-    fLayout_.addRow("Плотность, P:", &eDensity_);
-    fLayout_.addRow("", &btnSolve_);
-    conditions_.setLayout(&fLayout_);
+    fLayout1_.addRow("Доля водорода H, %:", &eDh_); 
+    fLayout1_.addRow("Доля углерода C, %:", &eDc_);
+    fLayout1_.addRow("Вещество:", &cbSub1_);
+    fLayout1_.addRow("Плотность, P:", &eDensity1_);
+    fLayout1_.addRow("", &btnSolve1_);
+    conditions1_.setLayout(&fLayout1_);
     
-    cbSubstance_.addItem("водород", QVariant(2));
-    cbSubstance_.addItem("кислород", QVariant(32));
-    cbSubstance_.addItem("воздух", QVariant(29));
-    cbSubstance_.setCurrentIndex(1);
+    cbSub1_.addItem("водород", QVariant(2));
+    cbSub1_.addItem("кислород", QVariant(32));
+    cbSub1_.addItem("воздух", QVariant(29));
+    cbSub1_.setCurrentIndex(1);
     
     eDh_.setText("25");
     eDc_.setText("75");
 
-    eDensity_.setText("0,5");
+    eDensity1_.setText("0,5");
 
     eDh_.setValidator(new QIntValidator(0, 100, this));
     eDc_.setValidator(new QIntValidator(0, 100, this));
-    eDensity_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
+    eDensity1_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
+}
+
+void WSolution::makeConditions2()
+{
+    conditions2_.hide();
+    conditions2_.setLayout(&fLayout2_);
+
+    fLayout2_.addRow("m(вещества)", &eMun_);
+    fLayout2_.addRow("m(CO2)", &eMco2_);
+    fLayout2_.addRow("m(H2O)", &eMh2o_);
+    fLayout2_.addRow("вещество", &cbSub2_);
+    fLayout2_.addRow("плотность по H2", &eDensity2_);
+    fLayout2_.addRow("", &btnSolve2_);
+
+    eMco2_.setText("44");
+    eMh2o_.setText("18");
+    cbSub2_.addItem("водород", QVariant(2));
+    cbSub2_.setEnabled(false);
+
+    eMun_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
+    eMco2_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
+    eMh2o_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
+    eDensity2_.setValidator(new QDoubleValidator(0.0, 1000.0, 2, this));
 }
 
 void WSolution::makeOut()
@@ -53,7 +94,7 @@ void WSolution::connections()
     connect(&eDh_, &QLineEdit::textChanged, this, &WSolution::reCountDc);
     connect(&eDc_, &QLineEdit::textEdited, this, &WSolution::dcLoseFocus);
     connect(&eDh_, &QLineEdit::textEdited, this, &WSolution::dhLoseFocus);
-    connect(&btnSolve_, &QPushButton::clicked, this, &WSolution::solve);
+    connect(&btnSolve1_, &QPushButton::clicked, this, &WSolution::solve);
 }
 
 void WSolution::reCountDc(const QString& text)
@@ -111,14 +152,14 @@ void WSolution::solve()
     st += "3. Разделив оба соотношения на наименьшее получим простейшую формулу " +
         sPartSub + "\n";
 
-    double dM = cbSubstance_.currentData().toDouble();
+    double dM = cbSub1_.currentData().toDouble();
 
-    st += "4. Плотность по " + cbSubstance_.currentText() + "y " + "равна относительной " +
+    st += "4. Плотность по " + cbSub1_.currentText() + "y " + "равна относительной " +
         "молекулярной массе всего вещества деленное на относительную молекулярную " +
-        "массу " + cbSubstance_.currentText() + "а, а значит \n";
-    st += "Р = M / 32, M = P * 32 = " + eDensity_.text() + " * " + QString::number(dM) + " = ";
+        "массу " + cbSub1_.currentText() + "а, а значит \n";
+    st += "Р = M / 32, M = P * 32 = " + eDensity1_.text() + " * " + QString::number(dM) + " = ";
 
-    QString sM = eDensity_.text();
+    QString sM = eDensity1_.text();
     sM.replace(',' , ".");
     double M = sM.toDouble() * dM;
     
