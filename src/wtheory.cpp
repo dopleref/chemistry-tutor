@@ -19,4 +19,7 @@ WTheory::WTheory(QWidget *parent) : QWidget(parent)
 
     mLayout_.addWidget(&text_);
     setLayout(&mLayout_);
+
+    text_.setReadOnly(true);
+    text_.setTextInteractionFlags(Qt::NoTextInteraction);
 }

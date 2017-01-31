@@ -14,27 +14,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::make()
 {
-    this->setFixedWidth(600);
-    this->setFixedHeight(800);
+    this->setMinimumHeight(800);
+    this->setMinimumWidth(400);
 
     widget_.setLayout(&mLayout_);
 
+    mLayout_.addWidget(&lType_, 0, Qt::AlignHCenter);
+    mLayout_.addWidget(&cbType_, 0, Qt::AlignHCenter);
+    mLayout_.addSpacing(50);
     mLayout_.addLayout(&tLayout_);
     mLayout_.addLayout(&bLayout_);
     bLayout_.addWidget(&tab_);
-    tab_.setFixedHeight(680);
+
+    lType_.setMinimumHeight(50);
+    lType_.setMargin(20);
+    cbType_.setMinimumHeight(100);
 
     tab_.addTab(&solution_, "Решение &1");
     tab_.addTab(&task_, "Задачи &2");
     tab_.addTab(&theory_, "Теория &3");
 
-    tLayout_.addWidget(&lType_);
-    tLayout_.addWidget(&cbType_);
+    cbType_.addItem("Тип 1: формула углеводорода", QVariant(0));
+    cbType_.addItem("Тип 2: формула вещества", QVariant(1));
 
-    cbType_.addItem("Тип 1: молекулярная формула углеводорода", QVariant(0));
-    cbType_.addItem("Тип 2: молекулярная формула вещества", QVariant(1));
-
-    QFont font("Arial", 12);
+    QFont font("Arial", 18);
     widget_.setFont(font);
 
     setCentralWidget(&widget_);

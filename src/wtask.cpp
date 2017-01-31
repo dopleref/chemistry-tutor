@@ -5,6 +5,8 @@ WTask::WTask(QWidget *parent) : QWidget(parent)
 {
     make();
     connections();
+    out_.setReadOnly(true);
+    out_.setTextInteractionFlags(Qt::NoTextInteraction);
 }
 
 void WTask::make()
