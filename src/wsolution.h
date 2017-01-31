@@ -37,6 +37,9 @@ private:
     void dhLoseFocus();
     void dcLoseFocus();
 
+    inline int min(int x, int y) { return (x < y) ? x : y; };
+    inline double min(double x, double y) { return (x < y) ? x : y; };
+
     void solve1();
     void solve2();
 

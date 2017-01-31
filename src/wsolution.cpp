@@ -186,111 +186,111 @@ void WSolution::solve1()
 
 void WSolution::solve2()
 {
-//    // найдем молекулярную массу вещества
-//    double p = eDensity2_.text().toDouble();
-//    double m_sub = p * 2.0;
-//    // найдем массу углерода
-//    double m_CO2 = eMco2_.text().toDouble();
-//    double m_C = (12 * m_CO2) / 44;
-//    // найдем массу водорода
-//    double m_H2 = eMh2o_.text().toDouble();
-//    double m_H = (2 * m_H2) / 18;
-//    // определим наличие кислорода в веществе
-//    double m_sum = m_C + m_H;
-//    double m_un = eMun_.text().toDouble();
-//    double m_O = m_un - m_sum;
-//    // ветвление, в зависимости от наличия кислорода
-//    double x, y, z;
-//    int x1, x2, x3;
-//    double min_val;
-//    double m_simple;
-//    int k;
-//    if (m_O <= 0)
-//    {
-//        // если нету кислорода, то расчитываем вариант формулы CxHy
-//        m_O = 0;
-//        // составим формулу вещества
-//        x = m_C / 12;
-//        y = m_H;
-//        min_val = std::fmin(x, y);
-//        x = std::ceil(x / min_val);
-//        y = std::ceil(y / min_val);
-//        m_simple = x * 12 + y;
-//        k = std::ceil(m_sub / m_simple);
-//        x1 = int(x) * k;
-//        x2 = int(y) * k;
-//    }
-//    else
-//    {
-//        // кислород присутствует, расчитываем вариант формулы CxHyOz
-//        // составим формулу вещества
-//        x = m_C / 12;
-//        y = m_H;
-//        z = m_O / 16;
-//        min_val = std::fmin(std::fmin(x, y), z);
-//        x = std::ceil(x / min_val);
-//        y = std::ceil(y / min_val);
-//        z = std::ceil(z / min_val);
-//        m_simple = x * 12 + y + z * 16;
-//        k = std::ceil(m_sub / m_simple);
-//        x1 = int(x) * k;
-//        x2 = int(y) * k;
-//        x3 = int(z) * k;
-//    }
+    // найдем молекулярную массу вещества
+    double p = eDensity2_.text().toDouble();
+    double m_sub = p * 2.0;
+    // найдем массу углерода
+    double m_CO2 = eMco2_.text().toDouble();
+    double m_C = (12 * m_CO2) / 44;
+    // найдем массу водорода
+    double m_H2 = eMh2o_.text().toDouble();
+    double m_H = (2 * m_H2) / 18;
+    // определим наличие кислорода в веществе
+    double m_sum = m_C + m_H;
+    double m_un = eMun_.text().toDouble();
+    double m_O = m_un - m_sum;
+    // ветвление, в зависимости от наличия кислорода
+    double x, y, z;
+    int x1, x2, x3;
+    double min_val;
+    double m_simple;
+    int k;
+    if (m_O <= 0)
+    {
+        // если нету кислорода, то расчитываем вариант формулы CxHy
+        m_O = 0;
+        // составим формулу вещества
+        x = m_C / 12;
+        y = m_H;
+        min_val = min(x, y);
+        x = std::ceil(x / min_val);
+        y = std::ceil(y / min_val);
+        m_simple = x * 12 + y;
+        k = std::ceil(m_sub / m_simple);
+        x1 = int(x) * k;
+        x2 = int(y) * k;
+    }
+    else
+    {
+        // кислород присутствует, расчитываем вариант формулы CxHyOz
+        // составим формулу вещества
+        x = m_C / 12;
+        y = m_H;
+        z = m_O / 16;
+        min_val = min(min(x, y), z);
+        x = std::ceil(x / min_val);
+        y = std::ceil(y / min_val);
+        z = std::ceil(z / min_val);
+        m_simple = x * 12 + y + z * 16;
+        k = std::ceil(m_sub / m_simple);
+        x1 = int(x) * k;
+        x2 = int(y) * k;
+        x3 = int(z) * k;
+    }
 
-//    // сформируем текст решения
-//    tOut_.setText("");
-//    QString text;
-//    text = "1. Молекулярная масса вещества может быть вычислена по формуле\n";
-//    text += "Mr = P * M(H2) = " + QString::number(p) + " * 2 = " +
-//        QString::number(m_sub) + "\n";
-//    text += "2. В 44 граммах СО2 содержится 12 граммов С.\n";
-//    text += "Пусть в m(CO2) содержится x граммов C. Тогда мы можем составить ";
-//    text += "пропорцию 44/12 = m(CO2)/m(C). \nОтсюда находим m(C) = (12 * m(CO2)) / 44 = ";
-//    text += QString::number(m_C) + "\n";
+    // сформируем текст решения
+    tOut_.setText("");
+    QString text;
+    text = "1. Молекулярная масса вещества может быть вычислена по формуле\n";
+    text += "Mr = P * M(H2) = " + QString::number(p) + " * 2 = " +
+        QString::number(m_sub) + "\n";
+    text += "2. В 44 граммах СО2 содержится 12 граммов С.\n";
+    text += "Пусть в m(CO2) содержится x граммов C. Тогда мы можем составить ";
+    text += "пропорцию 44/12 = m(CO2)/m(C). \nОтсюда находим m(C) = (12 * m(CO2)) / 44 = ";
+    text += QString::number(m_C) + "\n";
 
-//    text += "3. В 18 граммах H2O содержится 2 грамма H.\n";
-//    text += "Пусть в m(H2O) содержится x граммов H. Тогда мы можем составить ";
-//    text += "пропорцию 18/2 = m(H2O)/m(H). \nОтсюда находим m(H) = (2 * m(H2O)) / 18 = ";
-//    text += QString::number(m_H) + "\n";
+    text += "3. В 18 граммах H2O содержится 2 грамма H.\n";
+    text += "Пусть в m(H2O) содержится x граммов H. Тогда мы можем составить ";
+    text += "пропорцию 18/2 = m(H2O)/m(H). \nОтсюда находим m(H) = (2 * m(H2O)) / 18 = ";
+    text += QString::number(m_H) + "\n";
 
-//    text += "4. Определим массу кислорода в веществе \nm(O) = m(вещества) - m(H) - m(C) = ";
-//    text += QString::number(m_O);
+    text += "4. Определим массу кислорода в веществе \nm(O) = m(вещества) - m(H) - m(C) = ";
+    text += QString::number(m_O);
 
-//    if (m_O == 0)
-//        text += " - в веществе кислород не содержится";
-//    text += "\n";
+    if (m_O == 0)
+        text += " - в веществе кислород не содержится";
+    text += "\n";
 
-//    if  (m_O != 0)
-//    {
-//        text += "5. Составим формулу вещества:\n";
-//        text += "Для этого составим соотношение: m(C)/12 : m(H)/1 : m(O)/16 = " +
-//        QString::number(x) + " : " + QString::number(y)  + " : " + QString::number(z) + "\n";
-//        text += "Молекулярная масса простейшей формулы Mr = x * 12 + y +  z * 16 = ";
-//        text += QString::number(m_simple) + "\n";
-//        text += "Определим соотношение между молекулярной массой вещества и ";
-//        text += "молекулярной массой простейшей формулы:\n";
-//        text += "k = M(вещества) / M(простейшей формулы) = " + QString::number(k) + "\n";
-//        text += "Искомое вещество - С" + QString::number(x1) +
-//            "H" + QString::number(x2) + "O" + QString::number(x3) + "\n";
-//    }
-//    else
-//    {
-//        text += "5. Составим формулу вещества:\n";
-//        text += "Для этого составим соотношение: m(C)/12 : m(H)/1 = " +
-//        QString::number(x) + " : " + QString::number(y) + "\n";
-//        text += "Молекулярная масса простейшей формулы Mr = x * 12 + y = ";
-//        text += QString::number(m_simple) + "\n";
-//        text += "Определим соотношение между молекулярной массой вещества и ";
-//        text += "молекулярной массой простейшей формулы:\n";
-//        text += "k = M(вещества) / M(простейшей формулы) = " + QString::number(k) + "\n";
-//        text += "Искомое вещество - С" + QString::number(x1) +
-//            "H" + QString::number(x2) + "\n";
+    if  (m_O != 0)
+    {
+        text += "5. Составим формулу вещества:\n";
+        text += "Для этого составим соотношение: m(C)/12 : m(H)/1 : m(O)/16 = " +
+        QString::number(x) + " : " + QString::number(y)  + " : " + QString::number(z) + "\n";
+        text += "Молекулярная масса простейшей формулы Mr = x * 12 + y +  z * 16 = ";
+        text += QString::number(m_simple) + "\n";
+        text += "Определим соотношение между молекулярной массой вещества и ";
+        text += "молекулярной массой простейшей формулы:\n";
+        text += "k = M(вещества) / M(простейшей формулы) = " + QString::number(k) + "\n";
+        text += "Искомое вещество - С" + QString::number(x1) +
+            "H" + QString::number(x2) + "O" + QString::number(x3) + "\n";
+    }
+    else
+    {
+        text += "5. Составим формулу вещества:\n";
+        text += "Для этого составим соотношение: m(C)/12 : m(H)/1 = " +
+        QString::number(x) + " : " + QString::number(y) + "\n";
+        text += "Молекулярная масса простейшей формулы Mr = x * 12 + y = ";
+        text += QString::number(m_simple) + "\n";
+        text += "Определим соотношение между молекулярной массой вещества и ";
+        text += "молекулярной массой простейшей формулы:\n";
+        text += "k = M(вещества) / M(простейшей формулы) = " + QString::number(k) + "\n";
+        text += "Искомое вещество - С" + QString::number(x1) +
+            "H" + QString::number(x2) + "\n";
 
-//    }
+    }
 
-//    tOut_.setText(text);
+    tOut_.setText(text);
 
-    tOut_.setText(QString("solution1"));
+//    tOut_.setText(QString("solution1"));
 } 
 
