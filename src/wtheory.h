@@ -19,7 +19,7 @@ public slots:
 private:
     QVBoxLayout mLayout_;
     QTextEdit text_;
-    QFile file_ {"theory1.txt"};
+    QFile file_ {":res/theory1.txt"};
 };
 
 #endif // WTHEORY_H

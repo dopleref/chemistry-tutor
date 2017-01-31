@@ -11,3 +11,6 @@ SOURCES += src/main.cpp \
     $$PWD/wtheory.cpp \
     $$PWD/wsolution.cpp \
     $$PWD/wtask.cpp
+
+RESOURCES += \
+    $$PWD/theory.qrc
