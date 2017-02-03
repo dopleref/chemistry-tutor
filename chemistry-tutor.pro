@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += qml quick quickcontrols2
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -27,3 +28,5 @@ include(src/src.pri)
 UI_DIR = .ui
 MOC_DIR = .moc
 OBJECTS_DIR = .obj
+
+DISTFILES +=

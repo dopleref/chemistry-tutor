@@ -13,4 +13,5 @@ SOURCES += src/main.cpp \
     $$PWD/wtask.cpp
 
 RESOURCES += \
-    $$PWD/theory.qrc
+    $$PWD/theory.qrc \
+    $$PWD/qml.qrc
