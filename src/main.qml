@@ -1,52 +1,99 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.1
-import QtQuick.Dialogs 1.2
 import QtQuick.Layouts 1.3
-import QtQuick.Controls.Material 2.1
-import QtQuick.Controls.Universal 2.1
-import Qt.labs.settings 1.0
 
 ApplicationWindow {
     visible: true
+    title: "Репетитор по химии"
+    property int margin: 10
     width: 480
     height: 640
-    title: qsTr("Репетитор по химии")
 
-    Column {
-        anchors.topMargin: 10
-        spacing:  10
+    ColumnLayout {
+        id: mainLayout
         anchors.fill: parent
+        anchors.margins: margin
 
-        Text {
-            horizontalAlignment: Qt.AlignHCenter
-            width: parent.width
-            text: "Выберите тип задачи"
-        }
+        RowLayout {
+            Layout.alignment: Qt.AlignCenter
+            Text {
+                text: "Тип задачи: "
+            }
 
-        ComboBox {
-            model: ["формула углеводорода", "формула вещества"]
-            anchors.horizontalCenter: parent.horizontalCenter
+            ComboBox {
+                Layout.fillWidth: true
+                model: ["формула углеводорода", "формула вещества"]
+            }
         }
 
         TabBar {
             id: tabBar
-            width: parent.width
-
+            Layout.fillWidth: true
             TabButton {
-                text: "Решение"               
+                text: "Решение"
+                onClicked: stack.currentIndex = 0
             }
             TabButton {
                 text: "Задачи"
+                onClicked: stack.currentIndex = 1
             }
             TabButton {
                 text: "Теория"
+                onClicked: stack.currentIndex = 2
             }
         }
 
-        solution1 {}
+        StackLayout {
+            id: stack
+            currentIndex: 0
+            ColumnLayout {
+                GridLayout {
+                    id: gridLayout
+                    Layout.alignment: Qt.AlignCenter
+                    columns: 2
+
+                    Label {
+                        text: "Доля водорода H, %:"
+                    }
+                    TextField {
+                        Layout.fillWidth: true
+                    }
+
+                    Label {
+                        text: "Доля углерода С, %:"
+                    }
+                    TextField {
+                        Layout.fillWidth: true
+                    }
+
+                    Label {
+                        text: "Вещество:"
+                    }
+                    ComboBox {
+                        Layout.fillWidth: true
+                        model: ["водород", "кислород", "воздух"]
+                    }
+
+                    Label {
+                        text: "Плотность P:"
+                    }
+                    TextField {
+                        Layout.fillWidth: true
+                    }
+                }
+
+                Button {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+                    text: "Решить"
+                }
+
+                GroupBox {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    TextArea {text: "" }
+                }
+            }
+        }
     }
-
-
-
-
 }
