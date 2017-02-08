@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>solution1.qml</file>
+        <file>Task1.qml</file>
+        <file>Condition1.qml</file>
+        <file>Theory1.qml</file>
     </qresource>
 </RCC>
