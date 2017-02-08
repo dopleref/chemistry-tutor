@@ -3,28 +3,38 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
 //ApplicationWindow {
+//    id: window
 //    visible: true
-//    title: "Test interaction"
 //    width: 480
 //    height: 640
 
-//    Connections {
-//        target: appCore
-//        onSendToQml: {
-//            text1.text = count
-//        }
-//    }
-
 //    ColumnLayout {
-//        Button { text: "button1" }
-//        Button {
-//            text: "button2"
-//            onClicked: appCore.receiveFromQml()
+////        Layout.fillHeight: true
+////        Layout.fillWidth: true
+//        anchors.fill: parent
+
+//        Rectangle {
+//            Layout.alignment: Qt.AlignCenter
+//            color: "red"
+//            Layout.preferredWidth: 40
+//            Layout.preferredHeight: 40
 //        }
-//        Text {
-//            id: text1
-//            text: "sometext"
+
+//        Rectangle {
+//                Layout.alignment: Qt.AlignRight
+//                color: "green"
+//                Layout.preferredWidth: 40
+//                Layout.preferredHeight: 70
+//            }
+
+//        Rectangle {
+//            Layout.alignment: Qt.AlignBottom
+//            Layout.fillHeight: true
+//            color: "blue"
+//            Layout.preferredWidth: 70
+//            Layout.preferredHeight: 40
 //        }
+
 //    }
 //}
 
@@ -60,8 +70,12 @@ ApplicationWindow {
             }
 
             ComboBox {
+                id: taskType
                 Layout.fillWidth: true
                 model: ["формула углеводорода", "формула вещества"]
+                onCurrentIndexChanged: {
+                    condition.currentIndex = taskType.currentIndex
+                }
             }
         }
 
@@ -85,30 +99,54 @@ ApplicationWindow {
         StackLayout {
             id: stack
             currentIndex: 0
-            ColumnLayout {
 
-                Condition1 {
-                    Layout.alignment: Qt.AlignCenter
+            ColumnLayout {
+                anchors.fill: parent
+
+                StackLayout {
+                    Layout.fillHeight: false
+                    id: condition
+                    currentIndex: 0
+                    Condition1 {
+
+//                        Layout.alignment: Qt.AlignCenter
+                    }
+                    Condition2 {}
                 }
 
                 Button {
                     Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignCenter
+                    Layout.alignment: Qt.AlignTop
+                    //Layout.alignment: Qt.AlignCenter
                     text: "Решить"
                 }
 
                 GroupBox {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    TextArea {text: "" }
+                    TextArea {
+                        text: ""
+                    }
                 }
             }
 
-            GroupBox {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                TextArea {text: "" }
-                Task1 {}
+            ColumnLayout {
+                Button {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignCenter
+                    text: "Сгенерировать задачу"
+                }
+                GroupBox {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+
+                    TextArea {text: "" }
+                    Text {
+                        id: task
+                        text: "Task1"
+                    }
+                }
             }
 
             Flickable {

@@ -3,20 +3,26 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
 GridLayout {
-    id: condition1
-    Layout.alignment: Qt.AlignTop
-//    Layout.alignment: Qt.AlignCenter
+    id: condition2
+    Layout.alignment: Qt.AlignCenter
     columns: 2
 
     Label {
-        text: "Доля водорода H, %:"
+        text: "m(вещества)"
     }
     TextField {
         Layout.fillWidth: true
     }
 
     Label {
-        text: "Доля углерода С, %:"
+        text: "m(CO2)"
+    }
+    TextField {
+        Layout.fillWidth: true
+    }
+
+    Label {
+        text: "m(H20)"
     }
     TextField {
         Layout.fillWidth: true
