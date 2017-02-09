@@ -2,42 +2,6 @@ import QtQuick 2.7
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
-//ApplicationWindow {
-//    id: window
-//    visible: true
-//    width: 480
-//    height: 640
-
-//    ColumnLayout {
-////        Layout.fillHeight: true
-////        Layout.fillWidth: true
-//        anchors.fill: parent
-
-//        Rectangle {
-//            Layout.alignment: Qt.AlignCenter
-//            color: "red"
-//            Layout.preferredWidth: 40
-//            Layout.preferredHeight: 40
-//        }
-
-//        Rectangle {
-//                Layout.alignment: Qt.AlignRight
-//                color: "green"
-//                Layout.preferredWidth: 40
-//                Layout.preferredHeight: 70
-//            }
-
-//        Rectangle {
-//            Layout.alignment: Qt.AlignBottom
-//            Layout.fillHeight: true
-//            color: "blue"
-//            Layout.preferredWidth: 70
-//            Layout.preferredHeight: 40
-//        }
-
-//    }
-//}
-
 ApplicationWindow {
     id: window
     visible: true
@@ -55,6 +19,8 @@ ApplicationWindow {
         onInit: {
             window.init()
             theory1.text = appCore.getTheory1()
+            condition.changeIndex()
+            solution.init()
         }
     }
 
@@ -101,31 +67,60 @@ ApplicationWindow {
             currentIndex: 0
 
             ColumnLayout {
+                id: solveLayout
                 anchors.fill: parent
 
                 StackLayout {
                     Layout.fillHeight: false
                     id: condition
                     currentIndex: 0
-                    Condition1 {
+                    function changeIndex() {
+                        if (condition.currentIndex == 0) {
+                            Layout.preferredHeight = condition1.height
+                            solution.resize(condition1.height)
+                        }
+                        else {
+                            Layout.preferredHeight = condition2.height
+                            solution.resize(condition2.height)
+                        }
 
-//                        Layout.alignment: Qt.AlignCenter
                     }
-                    Condition2 {}
+
+                    onCurrentIndexChanged: {
+                        condition.changeIndex()
+                    }
+
+                    Condition1 {
+                        id: condition1
+                    }
+                    Condition2 {
+                        id: condition2
+                    }
                 }
 
                 Button {
+                    id: btnSolve
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignTop
-                    //Layout.alignment: Qt.AlignCenter
                     text: "Решить"
                 }
 
                 GroupBox {
+                    id: solution
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     TextArea {
                         text: ""
+                    }
+
+                    function init() {
+                        Layout.fillHeight = true
+                    }
+
+                    function resize(height) {
+                        Layout.fillHeight = false
+                        var h = solveLayout.height - height - btnSolve.height - 11
+                        Layout.preferredHeight = h
                     }
                 }
             }
@@ -135,16 +130,43 @@ ApplicationWindow {
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignCenter
                     text: "Сгенерировать задачу"
+                    onClicked: {
+                        if (taskLayout.currentIndex < 2) {
+                            taskLayout.currentIndex++;
+                        }
+                        else {
+                            taskLayout.currentIndex = 0;
+                        }
+                    }
                 }
                 GroupBox {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
 
-                    TextArea {text: "" }
-                    Text {
-                        id: task
-                        text: "Task1"
+                    StackLayout {
+                        width: parent.width
+                        id: taskLayout
+                        currentIndex: 0
+                        TextArea {
+                            width: parent.width
+                            text: "Доля водорода 20 %, плотность по водороду 15, найти формулу вещества"
+                            readOnly: true
+                            wrapMode: TextEdit.WordWrap
+                        }
+                        TextArea {
+                            width: parent.width
+                            text: "Доля углерода 80 %, плотность по водороду 1,034, найти формулу вещества"
+                            readOnly: true
+                            wrapMode: TextEdit.WordWrap
+                        }
+                        TextArea {
+                            width: parent.width
+                            text: "Доля водорода 14 %, плотность по водороду 21, найти формулу вещества"
+                            readOnly: true
+                            wrapMode: TextEdit.WordWrap
+                        }
+
                     }
                 }
             }

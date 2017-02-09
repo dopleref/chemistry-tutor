@@ -3,7 +3,6 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
 GridLayout {
-    id: condition1
     Layout.alignment: Qt.AlignTop
 //    Layout.alignment: Qt.AlignCenter
     columns: 2
@@ -13,6 +12,7 @@ GridLayout {
     }
     TextField {
         Layout.fillWidth: true
+        text: "25"
     }
 
     Label {
@@ -20,6 +20,7 @@ GridLayout {
     }
     TextField {
         Layout.fillWidth: true
+        text: "75"
     }
 
     Label {
@@ -28,6 +29,7 @@ GridLayout {
     ComboBox {
         Layout.fillWidth: true
         model: ["водород", "кислород", "воздух"]
+        currentIndex: 1
     }
 
     Label {
@@ -35,5 +37,6 @@ GridLayout {
     }
     TextField {
         Layout.fillWidth: true
+        text: "0,5"
     }
 }
