@@ -26,6 +26,16 @@ QString AppCore::getTheory1()
     return stheory1_;
 }
 
+void AppCore::test(double value)
+{
+    qDebug() << "test!" << value;
+}
+
+QString AppCore::type1(double propH, double propC, double subM, double p)
+{
+    return solver_.type1(propH, propC, subM, p);
+}
+
 void AppCore::receiveFromQml()
 {
     count++;

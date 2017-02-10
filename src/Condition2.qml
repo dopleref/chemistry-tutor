@@ -46,4 +46,8 @@ GridLayout {
         Layout.fillWidth: true
         text: "39"
     }
+
+    function solve() {
+        appCore.test(2)
+    }
 }

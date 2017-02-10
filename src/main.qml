@@ -19,8 +19,9 @@ ApplicationWindow {
         onInit: {
             window.init()
             theory1.text = appCore.getTheory1()
-            condition.changeIndex()
-            solution.init()
+//            condition.changeIndex()
+//            solution.init()
+//            appCore.test(Condition1.)
         }
     }
 
@@ -74,21 +75,21 @@ ApplicationWindow {
                     Layout.fillHeight: false
                     id: condition
                     currentIndex: 0
-                    function changeIndex() {
-                        if (condition.currentIndex == 0) {
-                            Layout.preferredHeight = condition1.height
-                            solution.resize(condition1.height)
-                        }
-                        else {
-                            Layout.preferredHeight = condition2.height
-                            solution.resize(condition2.height)
-                        }
+//                    function changeIndex() {
+//                        if (condition.currentIndex == 0) {
+//                            Layout.preferredHeight = condition1.height
+//                            solution.resize(condition1.height)
+//                        }
+//                        else {
+//                            Layout.preferredHeight = condition2.height
+//                            solution.resize(condition2.height)
+//                        }
 
-                    }
+//                    }
 
-                    onCurrentIndexChanged: {
-                        condition.changeIndex()
-                    }
+//                    onCurrentIndexChanged: {
+//                        condition.changeIndex()
+//                    }
 
                     Condition1 {
                         id: condition1
@@ -98,31 +99,37 @@ ApplicationWindow {
                     }
                 }
 
-                Button {
-                    id: btnSolve
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignTop
-                    text: "Решить"
-                }
+//                Button {
+//                    id: btnSolve
+//                    Layout.fillWidth: true
+//                    Layout.alignment: Qt.AlignTop
+//                    text: "Решить"
+//                    onClicked: {
+//                        if (condition.currentIndex == 0)
+//                            solution.text = condition1.solve()
+//                        else
+//                            solution.text = condition2.solve()
+//                    }
+//                }
 
-                GroupBox {
-                    id: solution
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    TextArea {
-                        text: ""
-                    }
+//                GroupBox {
+//                    Layout.fillWidth: true
+//                    Layout.fillHeight: true
+//                    TextArea {
+//                        id: solution
+//                        text: ""
+//                    }
 
-                    function init() {
-                        Layout.fillHeight = true
-                    }
+//                    function init() {
+//                        Layout.fillHeight = true
+//                    }
 
-                    function resize(height) {
-                        Layout.fillHeight = false
-                        var h = solveLayout.height - height - btnSolve.height - 11
-                        Layout.preferredHeight = h
-                    }
-                }
+////                    function resize(height) {
+////                        Layout.fillHeight = false
+////                        var h = solveLayout.height - height - btnSolve.height - 11
+////                        Layout.preferredHeight = h
+////                    }
+//                    }
             }
 
             ColumnLayout {
