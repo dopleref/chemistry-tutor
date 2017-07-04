@@ -2,40 +2,67 @@ import QtQuick 2.7
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
-Rectangle {
-    //width: 200
-    height: 100
-    //color: "blue"
+Item {
+    id: root
+    height: 150
+    signal clicked
+    onClicked:  print("clicked")
 
+    property string color: "darkorange"
+    property alias direction: layout.layoutDirection
 
-    Label {
-        id: label
-        //width: 100
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: 8
-        text: "Теория"
-    }
+    RowLayout {
+        id: layout
+        anchors.fill: parent
+        anchors.margins: 10
+        spacing: 10
 
-    RoundMouseArea {
-        id: roundMouseArea1
-        width: 100
-        height: 100
-        //anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.horizontalCenterOffset: 100
-        anchors.left: label.right
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.margins: 8
-        //anchors.centerIn: parent
-
-        onClicked:  print("clicked")
+        Label {
+            id: label
+            //font.family: "Ubuntu"
+            font.pointSize: 24
+            text: "Теория"
+        }
 
         Rectangle {
-            color: roundMouseArea1.pressed ? "darkorange" : "transparent"
-            border.color: "darkorange"
+            id: roundButton
+            width: 150
+            height: 150
             radius: width / 2
-            anchors.fill: parent
+            border.color: root.color
+            border.width: 3
+            color: pressed ? root.color : "transparent"
+
+            readonly property bool pressed: roundMouseArea.containsMouse() &&
+                                            roundMouseArea.pressed
+
+            MouseArea {
+                id: roundMouseArea
+                anchors.fill: parent
+                hoverEnabled: true
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                onClicked:  if (roundMouseArea.containsMouse()) root.clicked()
+
+                function containsMouse() {
+                    var x1 = width / 2;
+                    var y1 = height / 2;
+                    var x2 = roundMouseArea.mouseX;
+                    var y2 = roundMouseArea.mouseY;
+                    var distanceFromCenter = Math.pow(x1 - x2, 2) +
+                            Math.pow(y1 - y2, 2);
+                    var radiusSquared = Math.pow(Math.min(width, height) / 2, 2);
+                    var isWithinOurRadius = distanceFromCenter < radiusSquared;
+                    return isWithinOurRadius;
+                }
+
+//                onPressed: if (roundMouseArea.containsMouse()) {
+//                               roundButton.color = root.color
+//                           }
+
+//                onReleased: if (roundMouseArea.containsMouse()) {
+//                                roundButton.color = "transparent"
+//                            }
+            }
         }
     }
-
 }
