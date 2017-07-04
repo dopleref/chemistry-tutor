@@ -4,5 +4,9 @@
         <file>Condition1.qml</file>
         <file>Theory1.qml</file>
         <file>Condition2.qml</file>
+        <file>RoundMouseArea.qml</file>
+        <file>StartScreen.qml</file>
+        <file>RoundLabeledButton.qml</file>
+        <file>StartScreen2.qml</file>
     </qresource>
 </RCC>

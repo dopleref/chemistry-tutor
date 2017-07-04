@@ -10,6 +10,14 @@ ApplicationWindow {
     width: 480
     height: 640
 
+    StartScreen2 {
+
+    }
+
+
+
+    /*
+
     function init() {
         console.log("init!");
     }
@@ -189,4 +197,6 @@ ApplicationWindow {
             }
         }
     }
+
+    */
 }
