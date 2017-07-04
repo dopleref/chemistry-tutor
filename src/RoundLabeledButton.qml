@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
-Item {
+Rectangle {
     id: root
     height: 150
     signal clicked
@@ -10,6 +10,8 @@ Item {
 
     property string color: "darkorange"
     property alias direction: layout.layoutDirection
+    property alias font: label.font
+
 
     RowLayout {
         id: layout
@@ -19,9 +21,7 @@ Item {
 
         Label {
             id: label
-            //font.family: "Ubuntu"
-            font.pointSize: 24
-            text: "Теория"
+            text: "теория"
         }
 
         Rectangle {
@@ -30,7 +30,7 @@ Item {
             height: 150
             radius: width / 2
             border.color: root.color
-            border.width: 3
+            border.width: 5
             color: pressed ? root.color : "transparent"
 
             readonly property bool pressed: roundMouseArea.containsMouse() &&
@@ -54,14 +54,6 @@ Item {
                     var isWithinOurRadius = distanceFromCenter < radiusSquared;
                     return isWithinOurRadius;
                 }
-
-//                onPressed: if (roundMouseArea.containsMouse()) {
-//                               roundButton.color = root.color
-//                           }
-
-//                onReleased: if (roundMouseArea.containsMouse()) {
-//                                roundButton.color = "transparent"
-//                            }
             }
         }
     }

@@ -8,5 +8,10 @@
         <file>StartScreen.qml</file>
         <file>RoundLabeledButton.qml</file>
         <file>StartScreen2.qml</file>
+        <file>10423.ttf</file>
+        <file>10615.ttf</file>
+    </qresource>
+    <qresource prefix="/res">
+        <file>../res/10423.ttf</file>
     </qresource>
 </RCC>

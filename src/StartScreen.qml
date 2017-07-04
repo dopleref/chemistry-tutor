@@ -13,7 +13,7 @@ Item {
         columns: 2
 
         Label {
-            text: "Теория"
+            text: "теория"
         }
 
         RoundMouseArea {

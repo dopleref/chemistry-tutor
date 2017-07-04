@@ -30,3 +30,5 @@ MOC_DIR = .moc
 OBJECTS_DIR = .obj
 
 DISTFILES +=
+
+RESOURCES +=
