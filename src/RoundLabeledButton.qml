@@ -3,25 +3,30 @@ import QtQuick.Controls 2.1
 import QtQuick.Layouts 1.3
 
 Rectangle {
+    //color: "darkorange"
     id: root
-    height: 150
+    height: 150 + layout.anchors.margins * 2
+    width: label.width + roundButton.width +
+           layout.spacing + layout.anchors.margins * 2
     signal clicked
-    onClicked:  print("clicked")
+    onClicked:  print(root.text)
 
-    property string color: "darkorange"
+    property string ccolor: "darkorange"
     property alias direction: layout.layoutDirection
     property alias font: label.font
+    property alias text: label.text
 
 
     RowLayout {
         id: layout
         anchors.fill: parent
         anchors.margins: 10
-        spacing: 10
+        spacing: 50
 
         Label {
             id: label
-            text: "теория"
+            font.pointSize: 32
+            text: "текст"
         }
 
         Rectangle {
@@ -29,9 +34,9 @@ Rectangle {
             width: 150
             height: 150
             radius: width / 2
-            border.color: root.color
+            border.color: root.ccolor
             border.width: 5
-            color: pressed ? root.color : "transparent"
+            color: pressed ? root.ccolor : "transparent"
 
             readonly property bool pressed: roundMouseArea.containsMouse() &&
                                             roundMouseArea.pressed
